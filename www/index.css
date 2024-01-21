@@ -10,6 +10,9 @@
     --ui-background: transparent;
     --ui-border: #333;
   }
+  a {
+    color: #3f8cf8 !important;
+  }
 }
 
 @media (min-width: 768px) {
@@ -45,4 +48,8 @@ body {
 
 .content {
   flex: 1;
+}
+
+a {
+  font-weight: 500;
 }

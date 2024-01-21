@@ -14,11 +14,11 @@
 
 .markdown-body blockquote {
   color: var(--color-fg-default);
-  background-color: var(--color-canvas-subtle);
-  padding: 1rem 1.25rem;
-  border-left: .4rem solid var(--color-accent-fg);
-  margin: 1.66rem 0rem;
-  border-radius: 5px;
+  background-color: color-mix(in srgb, var(--color-border-default) 25%, var(--color-canvas-subtle));
+  padding: .85rem 1.15rem;
+  border-left: 4px solid var(--color-accent-emphasis);
+  border-radius: 4px;
+  margin: .5rem 0rem;
 }
 
 .markdown-body blockquote > p {
