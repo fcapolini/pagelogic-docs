@@ -1,0 +1,49 @@
+<lib>
+
+<!---<:include src="/lib/markdown-it.min.js" as="script"/>
+<:include src="/lib/highlight/highlight.min.js" as="script"/>-->
+<script src="/lib/markdown-it.min.js"></script>
+<link rel="stylesheet" href="/lib/markdown.css"/>
+<script src="/lib/highlight/highlight.min.js"></script>
+<link rel="stylesheet" href="/lib/highlight/styles/default.css"/>
+<link href="/lib/github-markdown.min.css" rel="stylesheet"/>
+
+<!---
+  <:include src="/markdown/README.md" as="markdown-it"/>
+-->
+<!---
+  <pl-data :aka="summaryData" :url="/markdown/README.md" :type="text"/>
+  <markdown-it :data={summaryData.content}/>
+-->
+
+<:define tag="markdown-it" class="markdown-body"
+  :data={''}
+  :prepro={(s) => s}
+  :postpro={(dom) => null}
+  :did-init={() => {
+    const content = $scope.dom.innerHTML;
+    if (!content.trim() || $scope.dom.getAttribute('data-plstatic')) {
+      return;
+    }
+    $scope.dom.setAttribute('data-plstatic', '');
+    const md = window.markdownit();
+    let s = '\n' + content.replaceAll('&lt;', '<').replaceAll('&gt;', '>');
+    s = prepro(s);
+    const result = md.render(s);
+    $scope.dom.innerHTML = '\n' + result;
+    postpro($scope.dom);
+  }}
+  :handle-data={(() => {
+    if (!data) {
+      return;
+    }
+    const md = window.markdownit();
+    let s = '\n' + data;
+    s = prepro(s);
+    const result = md.render(s);
+    $scope.dom.innerHTML = '\n' + result;
+    postpro($scope.dom);
+  })()}
+></:define>
+
+</lib>

@@ -1,0 +1,6 @@
+* [markdown-it](https://github.com/markdown-it/markdown-it#init-with-presets-and-options)
+* [highlight.js](https://github.com/highlightjs/highlight.js)
+* [Using CSS custom properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
+* [github-markdown-css](https://github.com/sindresorhus/github-markdown-css/)
+* [starry-night](https://github.com/wooorm/starry-night)
+* [prism](https://github.com/PrismJS/prism)

@@ -1,0 +1,21 @@
+{
+  "name": "pagelogic-docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "npx pagelogic build src www",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "highlight.js": "^11.9.0",
+    "markdown-it": "^14.0.0",
+    "pagelogic": "^1.1.4"
+  }
+}

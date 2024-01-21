@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"/>
+    <title>PageLogic Docs</title>
+    <link rel="stylesheet" href="/index.css"/>
+    <:import src="/kit/stdlib.htm"/>
+    <:import src="/kit/markdown-it.htm"/>
+  </head>
+  <body>
+    <pl-data :aka="summaryData" :url="/markdown/README.md" :type="text"/>
+    <!-- <pl-data :aka="summaryData" :url="/markdown/concepts/html-extensions.md" :type="text"/> -->
+    <markdown-it :data={summaryData.content}
+      :prepro={(s) => {
+        s = fixTitle(s);
+        return s;
+      }}
+
+      :fixTitle={(s) => {
+        let descr, title;
+
+        function extractDescr(s) {
+          let i1, i2, i3;
+          if (/^\s*---/.test(s)) {
+            i1 = s.indexOf('---');
+            i2 = s.indexOf('description:', i1 + 3);
+            i3 = s.indexOf('---', i1 + 3);
+            i2 > 0 && i3 > 0 && i2 < i3 && (descr = s.substring(i2 + 'description:'.length, i3).trim());
+            i3 > 0 && (s = s.substring(i3 + 3));
+          }
+          return s;
+        }
+
+        function extractTitle(s) {
+          let i1 = s.indexOf('\n# ');
+          let i2 = (i1 >= 0 ? s.indexOf('\n', i1 + 3) : -1);
+          i2 >= 0 && (title = s.substring(i1 + 3, i2));
+          i2 >= 0 && (s = s.substring(i2 + 1));
+          return s;
+        }
+
+        s = extractDescr(s);
+        s = extractTitle(s);
+
+        let s2 = '';
+        title && (s2 = `\n# ${title}\n`);
+        descr && (s2 += `> ${descr}\n`);
+        s = s2 + s;
+
+        return s;
+      }}
+
+      :fixExtensions={(s) => {
+        // {% embed url="..." %}
+        const parts = s.split(/(\{%\s+)|(\s+%})/);
+      }}
+    />
+  </body>
+</html>

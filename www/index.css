@@ -1,0 +1,48 @@
+:root {
+  --ui-background: transparent;
+  --ui-border: #f4f4f4;
+  --side-width: 0px;
+  --side-display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ui-background: transparent;
+    --ui-border: #333;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --side-width: 150px;
+    --side-display: block;
+  }
+}
+
+/* @media (min-width: 1280px) {
+  :root {
+    --side-width: 240px;
+  }
+} */
+
+body {
+  margin: 0;
+}
+
+/* div.markdown-body {
+  display: flex;
+  max-width: calc(980px + var(--side-width));
+} */
+
+.menu {
+  display: var(--side-display);
+  position: relative;
+  width: var(--side-width);
+  background: var(--ui-background);
+  border-right: 1px solid var(--ui-border);
+  margin-right: 3rem;
+}
+
+.content {
+  flex: 1;
+}

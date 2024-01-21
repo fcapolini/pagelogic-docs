@@ -1,0 +1,65 @@
+<lib>
+
+<:define
+  tag="pl-data:script"
+  type={`text/${type === 'json' ? 'json' : 'plain'}`}
+
+  :url=""
+  :type="json"
+  :method="get"
+  :params={null}
+  :headers={null}
+  :autoGet={true}
+  :content={null}
+
+  :trigger={() => {
+    if (url) {
+      _lastUrl = url;
+      doRequest(url);
+    }
+  }}
+
+  :_lastUrl=""
+  :_okCount={0}
+  :_errCount={0}
+  :_dataCount={0}
+  :_isServer={!!window.happyDOM}
+  :_dom={$scope.dom}
+
+  :handle-url={(() => {
+    var s;
+    if (url && url !== _lastUrl && autoGet) {
+      _lastUrl = url;
+      if (!_isServer && !!(s = _dom.text)) {
+        _dom.text = '';
+        content = type === 'json' ? window.JSON.parse(s) : s;
+        _dataCount++;
+      } else {
+        doRequest(url);
+      }
+    }
+  })()}
+
+  :doRequest={(url, options, resCB, errCB) => {
+    url || (url = this.url);
+    resCB || (resCB = (res) => {
+      return type === 'json' ? res.json() : res.text();
+    });
+    window.fetch && window.fetch(url, options)
+      .then(resCB)
+      .then(v => {
+        _dom.text = _isServer ? (type === 'json' ? window.JSON.stringify(v) : v) : '';
+        content = v;
+        _dataCount++;
+        _okCount++;
+      })
+      .catch(e => {
+        errCB
+          ? errCB(e)
+          : window.console.log('<:pl-data>', url, e);
+        _errCount++;
+      });
+  }}
+/>
+
+</lib>
