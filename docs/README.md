@@ -42,10 +42,6 @@ pagelogic serve ./www
 
 > This is a complete working example: all the boilerplate required by traditional frameworks is removed, and only what's relevant for the actual page logic remains.
 
-{% hint style="info" %}
-This is a complete working example: all the boilerplate required by traditional frameworks is removed, and only what's relevant for the actual page logic remains.
-{% endhint %}
-
 ### How it works
 
 * Because it declares logic values, `<button>` has its own scope, which includes the property `count`.
