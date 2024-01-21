@@ -3,7 +3,6 @@
 <!---<:include src="/lib/markdown-it.min.js" as="script"/>
 <:include src="/lib/highlight/highlight.min.js" as="script"/>-->
 <script src="/lib/markdown-it.min.js"></script>
-<link rel="stylesheet" href="/lib/markdown.css"/>
 <script src="/lib/highlight/highlight.min.js"></script>
 <link rel="stylesheet" href="/lib/highlight/styles/default.css"/>
 <link href="/lib/github-markdown.min.css" rel="stylesheet"/>
@@ -28,10 +27,10 @@
       });
     }
     const content = $scope.dom.innerHTML;
-    if (!content.trim() || $scope.dom.getAttribute('data-plstatic')) {
+    if (!content.trim() || $scope.dom.getAttribute('data-pl-static')) {
       return;
     }
-    $scope.dom.setAttribute('data-plstatic', '');
+    $scope.dom.setAttribute('data-pl-static', '');
     let s = '\n' + content.replaceAll('&lt;', '<').replaceAll('&gt;', '>');
     s = prepro(s);
     const result = $scope.object['markdownItInstance'].render(s);
