@@ -1,5 +1,5 @@
 ---
-description: An isomorphic HTML-based reactive web framework
+description: Isomorphic HTML-based reactive web framework
 ---
 
 # PageLogic
@@ -41,6 +41,10 @@ pagelogic serve ./www
 {% embed url="https://pagelogic.dev/samples/quick-start" %}
 
 > This is a complete working example: all the boilerplate required by traditional frameworks is removed, and only what's relevant for the actual page logic remains.
+
+{% hint style="info" %}
+This is a complete working example: all the boilerplate required by traditional frameworks is removed, and only what's relevant for the actual page logic remains.
+{% endhint %}
 
 ### How it works
 
