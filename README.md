@@ -1,3 +1,3 @@
-# pagelogic-website
+# pagelogic-docs
 
-Website for [pagelogic.dev](https://pagelogic.dev/).
+PageLogic docs & website for [pagelogic.dev](https://pagelogic.dev/).

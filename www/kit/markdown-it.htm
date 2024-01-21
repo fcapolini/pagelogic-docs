@@ -12,35 +12,40 @@
   <:include src="/markdown/README.md" as="markdown-it"/>
 -->
 <!---
-  <pl-data :aka="summaryData" :url="/markdown/README.md" :type="text"/>
-  <markdown-it :data={summaryData.content}/>
+  <pl-data :aka="markdownData" :url="/markdown/README.md" :type="text"/>
+  <markdown-it :data={markdownData.content}/>
 -->
 
 <:define tag="markdown-it" class="markdown-body"
   :data={''}
   :prepro={(s) => s}
   :postpro={(dom) => null}
+
   :did-init={() => {
+    if (!$scope.object['markdownItInstance']) {
+      $scope.object['markdownItInstance'] = window.markdownit({
+        html: true
+      });
+    }
     const content = $scope.dom.innerHTML;
     if (!content.trim() || $scope.dom.getAttribute('data-plstatic')) {
       return;
     }
     $scope.dom.setAttribute('data-plstatic', '');
-    const md = window.markdownit();
     let s = '\n' + content.replaceAll('&lt;', '<').replaceAll('&gt;', '>');
     s = prepro(s);
-    const result = md.render(s);
+    const result = $scope.object['markdownItInstance'].render(s);
     $scope.dom.innerHTML = '\n' + result;
     postpro($scope.dom);
   }}
+
   :handle-data={(() => {
     if (!data) {
       return;
     }
-    const md = window.markdownit();
     let s = '\n' + data;
     s = prepro(s);
-    const result = md.render(s);
+    const result = $scope.object['markdownItInstance'].render(s);
     $scope.dom.innerHTML = '\n' + result;
     postpro($scope.dom);
   })()}

@@ -15,6 +15,7 @@
     <markdown-it :data={summaryData.content}
       :prepro={(s) => {
         s = fixTitle(s);
+        s = fixExtensions(s);
         return s;
       }}
 
@@ -52,9 +53,19 @@
         return s;
       }}
 
-      :fixExtensions={(s) => {
-        // {% embed url="..." %}
-        const parts = s.split(/(\{%\s+)|(\s+%})/);
+      :fixExtensions={(txt) => {
+        const re = /\{% embed url="(.+?)" %\}/g;
+        const p = [];
+        let i = 0;
+        for (let res; !!(res = re.exec(txt));) {
+          res.index > i && (p.push(txt.substring(i, res.index)));
+          i = res.index + res[0].length;
+          p.push(`<iframe src="${res[1]}"></iframe>`);
+        }
+        if (i < txt.length) {
+          p.push(txt.substring(i));
+        }
+        return p.join('');
       }}
     />
   </body>
