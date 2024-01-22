@@ -80,14 +80,17 @@
 
 .iframe-dot.red {
   background-color: #FC4646;
+  opacity: .5;
 }
 
 .iframe-dot.orange {
   background-color: #FCAF24;
+  opacity: .5;
 }
 
 .iframe-dot.green {
   background-color: #28C131;
+  opacity: .5;
 }
 
 .iframe-address {
