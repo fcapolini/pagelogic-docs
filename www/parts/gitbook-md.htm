@@ -96,7 +96,18 @@
     for (let res; !!(res = re.exec(s));) {
       res.index > i && (p.push(s.substring(i, res.index)));
       i = res.index + res[0].length;
-      p.push(`<div class="iframe-container"><iframe src="${res[1]}" loading="lazy"></iframe></div>`);
+      p.push(`<div class="iframe-container">
+        <div class="iframe-toolbar">
+          <div class="iframe-dot red"></div>
+          <div class="iframe-dot orange"></div>
+          <div class="iframe-dot green"></div>
+          <div class="iframe-address">
+            <a href="https://pagelogic.dev${res[1]}" target="sample">https://pagelogic.dev${res[1]}</a>
+          </div>
+        </div>
+        <div class="iframe-background"></div>
+        <iframe src="${res[1]}" loading="lazy"></iframe>
+      </div>`);
     }
     if (i < s.length) {
       p.push(s.substring(i));
