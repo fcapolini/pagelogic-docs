@@ -43,7 +43,8 @@
 
   :prepro={(s) => {
     s = fixTitle(s);
-    s = fixExtensions(s);
+    s = fixCodeTitles(s);
+    s = fixEmbedUrls(s);
     return s;
   }}
 
@@ -89,7 +90,7 @@
     return s;
   }}
 
-  :fixExtensions={(s) => {
+  :fixEmbedUrls={(s) => {
     const re = /\{% embed url="(.+?)" %\}/g;
     const p = [];
     let i = 0;
@@ -102,7 +103,7 @@
           <div class="iframe-dot orange"></div>
           <div class="iframe-dot green"></div>
           <div class="iframe-address">
-            <a href="https://pagelogic.dev${res[1]}" target="sample">https://pagelogic.dev${res[1]}</a>
+            <a href="${res[1]}" target="sample">${res[1]}</a>
           </div>
         </div>
         <div class="iframe-background"></div>
@@ -113,7 +114,24 @@
       p.push(s.substring(i));
     }
     return p.join('');
-  }}>
+  }}
+
+  :fixCodeTitles={(s) => {
+    const re = /\{% code title="(.+?)" %\}/g;
+    const p = [];
+    let i = 0;
+    for (let res; !!(res = re.exec(s));) {
+      res.index > i && (p.push(s.substring(i, res.index)));
+      i = res.index + res[0].length;
+      p.push(`<div class="code-container"><div class="code-title">${res[1]}</div>\n`);
+    }
+    if (i < s.length) {
+      p.push(s.substring(i));
+    }
+    const ret = p.join('');
+    return ret.replaceAll('{% endcode %}', '</div>');
+  }}
+>
   <pl-data :aka="mdData" :url={`/markdown/${doc}`} :type="text"/>
 </:define>
 

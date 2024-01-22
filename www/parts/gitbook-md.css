@@ -25,6 +25,29 @@
   opacity: .9;
 }
 
+.code-container {
+}
+
+.code-title {
+  display: inline-block;
+  font-size: .9rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--color-fg-default) 33%, var(--color-fg-subtle));
+  background-color: var(--color-canvas-subtle);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: .33rem;
+  padding-bottom: .25rem;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  /* margin-bottom: -.25rem; */
+}
+
+.code-title + pre {
+  border-top-left-radius: 0;
+  /* border-top-right-radius: 0; */
+}
+
 .iframe-container {
   position: relative;
   background-color: var(--color-border-subtle);
@@ -100,7 +123,7 @@ iframe {
   z-index: 1;
 }
 
-iframe[src='/samples/quick-start'] {
+iframe[src='https://pagelogic.dev/samples/quick-start'] {
   height: 38px;
 }
 

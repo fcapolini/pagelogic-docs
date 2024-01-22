@@ -67,8 +67,9 @@ a {
 
 .page-descr {
   font-size: 18px;
-  font-weight: 200;
+  font-weight: 300;
   margin-bottom: 2.5rem;
+  opacity: 0.75;
 }
 
 li {
