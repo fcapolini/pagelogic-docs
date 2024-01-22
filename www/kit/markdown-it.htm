@@ -4,7 +4,7 @@
 <:include src="/lib/highlight/highlight.min.js" as="script"/>-->
 <script src="/lib/markdown-it.min.js"></script>
 <script src="/lib/highlight/highlight.min.js"></script>
-<link rel="stylesheet" href="/lib/highlight/styles/default.css"/>
+<link rel="stylesheet" href="/lib/highlight/styles/github.css"/>
 <link href="/lib/github-markdown.min.css" rel="stylesheet"/>
 
 <!---
@@ -23,7 +23,7 @@
   :did-init={() => {
     if (!$scope.object['markdownItInstance']) {
       $scope.object['markdownItInstance'] = window.markdownit({
-        html: true
+        html: true,
       });
     }
     const content = $scope.dom.innerHTML;
@@ -35,7 +35,7 @@
     s = prepro(s);
     const result = $scope.object['markdownItInstance'].render(s);
     $scope.dom.innerHTML = '\n' + result;
-    postpro($scope.dom);
+    _postpro($scope.dom);
   }}
 
   :handle-data={(() => {
@@ -46,8 +46,13 @@
     s = prepro(s);
     const result = $scope.object['markdownItInstance'].render(s);
     $scope.dom.innerHTML = '\n' + result;
-    postpro($scope.dom);
+    _postpro($scope.dom);
   })()}
+
+  :_postpro={(dom) => {
+    window.hljs.highlightAll();
+    postpro(dom);
+  }}
 ></:define>
 
 </lib>

@@ -4,12 +4,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="color-scheme" content="light dark"/>
     <title>PageLogic Docs</title>
+    <link rel="stylesheet" href="/index.css"/>
     <:import src="/kit/stdlib.htm"/>
     <:import src="/kit/markdown-it.htm"/>
     <:import src="/parts/gitbook-md.htm"/>
-    <link rel="stylesheet" href="/index.css"/>
   </head>
-  <body>
-    <gitbook-md :doc="README.md"/>
+  <body :did-init={() => {
+      window.addEventListener("resize", () => doc.onWindowResize());
+    }}>
+    <gitbook-md :aka="doc" :doc="README.md"/>
   </body>
 </html>

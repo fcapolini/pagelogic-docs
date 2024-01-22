@@ -53,3 +53,13 @@ body {
 a {
   font-weight: 500;
 }
+
+.page-title {
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.page-descr {
+  font-size: 18px;
+  font-weight: 200;
+}

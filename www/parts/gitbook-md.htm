@@ -4,6 +4,43 @@
 <:define tag="gitbook-md:markdown-it"
   :doc="README.md"
   :data={mdData.content}
+  :title=""
+  :descr=""
+
+  :resizeTimer={null}
+  :resizeWidth={0}
+  :resizeCount={0}
+  :resizeValue={0}
+
+  :onWindowResize={() => {
+    if (!resizeTimer) {
+      resizeTimer = window.setInterval(() => {
+        const w = window.parseInt(window.getComputedStyle($scope.dom).width);
+        if (w === resizeWidth) {
+          if (++resizeCount > 5) {
+            if (w !== resizeValue) {
+              resizeValue = w;
+              resizeIFrames();
+            }
+            window.clearInterval(resizeTimer);
+            resizeTimer = 0;
+            resizeCount = 0;
+          }
+        } else {
+          resizeWidth = w;
+          resizeCount = 0;
+        }
+      }, 100);
+    }
+  }}
+
+  :resizeIFrames={() => {
+    window.console.log('resizeIFrames');//tempdebug
+    const ee = $scope.dom.querySelectorAll('iframe');
+    for (let e of ee) {
+      e.style.width = window.getComputedStyle(e.parentElement).width;
+    }
+  }}
 
   :prepro={(s) => {
     s = fixTitle(s);
@@ -15,13 +52,12 @@
     const ee = dom.querySelectorAll('iframe');
     for (let e of ee) {
       e.onload = () => e.style.opacity = 1;
+      e.style.width = window.getComputedStyle(e.parentElement).width;
     }
   }}
 
   :fixTitle={(s) => {
-    let descr, title;
-
-    function extractDescr(s) {
+    const extractDescr = (s) => {
       let i1, i2, i3;
       if (/^\s*---/.test(s)) {
         i1 = s.indexOf('---');
@@ -33,7 +69,7 @@
       return s;
     }
 
-    function extractTitle(s) {
+    const extractTitle = (s) => {
       let i1 = s.indexOf('\n# ');
       let i2 = (i1 >= 0 ? s.indexOf('\n', i1 + 3) : -1);
       i2 >= 0 && (title = s.substring(i1 + 3, i2));
@@ -45,8 +81,10 @@
     s = extractTitle(s);
 
     let s2 = '';
-    title && (s2 = `\n# ${title}\n`);
-    descr && (s2 += `> ${descr}\n`);
+    //title && (s2 = `\n# ${title}\n`);
+    //descr && (s2 += `> ${descr}\n`);
+    title && (s2 = `<div class="page-title">${title}</div>\n`);
+    descr && (s2 += `<div class="page-descr">${descr}</div>\n`);
     s = s2 + s;
 
     return s;
@@ -59,7 +97,7 @@
     for (let res; !!(res = re.exec(s));) {
       res.index > i && (p.push(s.substring(i, res.index)));
       i = res.index + res[0].length;
-      p.push(`<iframe src="${res[1]}" loading="lazy"></iframe>`);
+      p.push(`<div class="iframe-container"><iframe src="${res[1]}" loading="lazy"></iframe></div>`);
     }
     if (i < s.length) {
       p.push(s.substring(i));
