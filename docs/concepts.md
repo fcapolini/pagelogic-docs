@@ -1,5 +1,5 @@
 ---
-description: PageLogic augments HTML with a small set of well defined concepts
+description: HTML is augmented with a small set of well defined extensions
 ---
 
 # Concepts
