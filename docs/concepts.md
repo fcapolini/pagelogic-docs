@@ -50,8 +50,8 @@ PageLogic pages are preprocessed and directives are interpreted to generate the 
 
 The `<:import>` and `<:include>` directives supports physical modularization of source files:
 
+{% code title="index.html" %}
 ```html
-<!-- index.html -->
 <html>
   <head>
     <:import src="inc/head.html"/>
@@ -59,9 +59,10 @@ The `<:import>` and `<:include>` directives supports physical modularization of 
   ...
 </html>
 ```
+{% endcode %}
 
+{% code title="about-us.html" %}
 ```html
-<!-- about-us.html -->
 <html>
   <head>
     <:import src="inc/head.html"/>
@@ -69,9 +70,10 @@ The `<:import>` and `<:include>` directives supports physical modularization of 
   ...
 </html>
 ```
+{% endcode %}
 
+{% code title="inc/head.htm" %}
 ```html
-<!-- inc/head.htm -->
 <lib>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -79,6 +81,7 @@ The `<:import>` and `<:include>` directives supports physical modularization of 
   <link rel="stylesheet" href="/styles.css"/>
 </lib>
 ```
+{% endcode %}
 
 > Source files intended for inclusion should use the `.htm` extension. This ensures they won’t be considered deliverable pages by the server or the compiler.
 
@@ -88,8 +91,8 @@ Both these directives include the specified source, but `<:import>` will only in
 
 The `<:define>` directive supports logical modularization through definition of components:
 
+{% code title="index.html" %}
 ```html
-<!-- index.html -->
 <html>
   <head>
     <:import src="/inc/card.htm"/>
@@ -102,9 +105,10 @@ The `<:define>` directive supports logical modularization through definition of 
   </body>
 </html>
 ```
+{% endcode %}
 
+{% code title="inc/card.htm" %}
 ```html
-<!-- inc/card.htm -->
 <lib>
   <style>
     .app-card {
@@ -128,5 +132,6 @@ The `<:define>` directive supports logical modularization through definition of 
   </:define>
 </lib>
 ```
+{% endcode %}
 
 > Components which provide their own baseline styling should base their styling on a class with the same name as the component.

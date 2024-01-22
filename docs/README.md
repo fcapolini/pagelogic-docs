@@ -10,19 +10,19 @@ PageLogic brings reactive web development, as popularized by [React](https://rea
 
 It augments HTML with:
 
-* [logic values](broken-reference), specified with `:`-prefixed attributes
-* [reactive expressions](broken-reference), wrapped in `{...}` clauses
-* [visibility scopes](broken-reference), associated to elements with logic values
-* [directives](broken-reference), declared as `<:...>` tags and used to modularize code.
+* [logic values](concepts.md#logic-values), specified with `:`-prefixed attributes
+* [reactive expressions](concepts.md#reactive-expressions), wrapped in `{...}` clauses
+* [visibility scopes](concepts.md#visibility-scopes), associated to elements with logic values
+* [directives](concepts.md#directives), declared as `<:...>` tags and used to modularize code.
 
-PageLogic includes a [Node.js](https://nodejs.org/) server and an [Express](https://expressjs.com/) middleware that handle these HTML extensions and deliver standard HTML plus accompanying code to implement page behavior. By default, logic starts running in the server — to deliver content-ready pages for search engines indexing — and continues in the client — to provide a modern user experience.
+PageLogic includes a [Node.js](https://nodejs.org/) server and an [Express](https://expressjs.com/) middleware that handle these HTML extensions and deliver standard HTML plus accompanying code to implement page behavior. By default, logic starts running [in the server](features/isomorphism-and-ssr.md) — to deliver content-ready pages for search engines — and continues in the client — to provide a modern user experience.
 
 Alternatively, pages can be precompiled using PageLogic's CLI and delivered as static HTML, or embedded in web-based apps, with no external dependencies.
 
 ## Quick start
 
+{% code title="www/index.html" %}
 ```html
-<!-- www/index.html -->
 <html>
   <body>
     <button :count={0} :on-click={() => count++}>
@@ -31,6 +31,7 @@ Alternatively, pages can be precompiled using PageLogic's CLI and delivered as s
   </body>
 </html>
 ```
+{% endcode %}
 
 ```bash
 npm install -g pagelogic
@@ -47,7 +48,7 @@ pagelogic serve ./www
 * Because it declares logic values, `<button>` has its own scope, which includes the property `count`.
 * The `{count}` expression lives in the same scope, and references the property. Since it’s reactive, it’s automatically updated whenever it changes.
 * This happens when users click the button, thanks to the `on-click` event listener.
-* The page is served complete with its initial content "Clicks: 0": page logic [starts in the server and continues in the client](broken-reference) by default.
+* The page is served complete with its initial content "Clicks: 0", as page logic starts in the server and continues in the client by default.
 
 When served through a PageLogic server, pages are compiled on the fly. In development mode, pages are recompiled automatically and the browser is refreshed when they change.
 
