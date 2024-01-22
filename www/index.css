@@ -10,6 +10,12 @@
     --ui-background: transparent;
     --ui-border: #333;
   }
+  body {
+    -webkit-font-smoothing: antialiased;
+  }
+  strong {
+    font-weight: 800 !important;
+  }
   a {
     color: #3f8cf8 !important;
   }
@@ -63,4 +69,9 @@ a {
   font-size: 18px;
   font-weight: 200;
   margin-bottom: 2.5rem;
+}
+
+li {
+  margin-top: .66rem;
+  margin-bottom: .66rem;
 }
